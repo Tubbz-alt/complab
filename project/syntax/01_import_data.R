@@ -34,7 +34,7 @@ n <- length(aux)
 nf <- format(n, big.mark = ',')
 cat('Total number of files:', nf, '\n')
 
-# To read .h5 files we need a non-rcran package
+# To read .h5 files we need a non-rcran package
 if (require(rhdf5) == FALSE) {
   source('http://bioconductor.org/biocLite.R')
   biocLite('rhdf5')

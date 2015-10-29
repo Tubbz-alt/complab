@@ -16,6 +16,7 @@ source(paste(SCRIPTSDIR, 'functions_generic.R', sep = ''))
 
 # Full scripts
 if (FALSE) {
-  source(paste(SYNTAXDIR, '01_import_data.R', sep = ''))
+  source(paste(SYNTAXDIR, '01_searchResults.R', sep = ''))
+  source(paste(SYNTAXDIR, '02_reviewParser.R', sep = ''))
 }
 # END OF SCRIPT

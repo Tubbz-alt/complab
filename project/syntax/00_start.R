@@ -46,13 +46,13 @@ source(paste(SYNTAXDIR, '00_index.R', sep = ''))
 ################################################################################
 # Settings
 # Check R version
-check.version(dev.R = '3.2.1 x86_64')
+check.version(dev.R = '3.2.2 x86_64')
 
 # Print starting time
 bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 
 # Packages needed
-load.packages(pkgs = c())
+load.packages(pkgs = c('data.table'))
 
 # Stone parameters
 today <- format(Sys.time(), '%Y%m%d')
