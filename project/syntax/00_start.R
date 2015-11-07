@@ -6,7 +6,7 @@
 # Script   : 00_start.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.10.18
-# Modified : -
+# Modified : Miquel Torrens, 2015.11.06
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 ################################################################################
@@ -16,7 +16,7 @@
 PATH <- '/Users/miquel/Desktop/bgse/projects/complab/'
 
 # Project Name
-PROJECT <- 'DS16T1.CL_PROJECT'
+PROJECT <- 'DS16T1.CL&DW_PROJECT'
 ################################################################################
 
 ################################################################################
@@ -29,7 +29,7 @@ OUTPUTDIR <- paste(PATH, 'output/', sep = '')
 SYNTAXDIR <- paste(PATH, 'syntax/', sep = '')
 SCRIPTSDIR <- paste(SYNTAXDIR, 'scripts/', sep = '')
 
-# Create them
+# Create folders
 try(dir.create(PATH, showWarnings = FALSE))
 try(dir.create(DOCDIR, showWarnings = FALSE))
 try(dir.create(DATADIR, showWarnings = FALSE))
@@ -52,7 +52,7 @@ check.version(dev.R = '3.2.2 x86_64')
 bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 
 # Packages needed
-load.packages(pkgs = c('data.table'))
+load.packages(pkgs = c('data.table', 'RMySQL'))
 
 # Stone parameters
 today <- format(Sys.time(), '%Y%m%d')
