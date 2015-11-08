@@ -6,14 +6,21 @@
 # Script   : 00_start.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.10.18
-# Modified : Miquel Torrens, 2015.11.06
+# Modified : Miquel Torrens, 2015.11.08
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 ################################################################################
 
 ################################################################################
+# Read command line arguments
+args <- commandArgs(trailingOnly = TRUE)
+
 # Root path
-PATH <- '/Users/miquel/Desktop/bgse/projects/complab/'
+if (is.na(args[1]) || .Platform['OS.type'] != 'unix') {
+  PATH <- '/Users/miquel/Desktop/bgse/projects/complab/'
+} else {
+  PATH <- system(toString(args[1]), intern = TRUE)
+}
 
 # Project Name
 PROJECT <- 'DS16T1.CL&DW_PROJECT'
@@ -52,7 +59,7 @@ check.version(dev.R = '3.2.2 x86_64')
 bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 
 # Packages needed
-load.packages(pkgs = c('data.table', 'RMySQL'))
+load.packages(pkgs = c('data.table', 'RMySQL', 'gdata'))
 
 # Stone parameters
 today <- format(Sys.time(), '%Y%m%d')

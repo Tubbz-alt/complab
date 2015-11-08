@@ -6,7 +6,7 @@
 # Descrip. : generic user-made R functions for general purposes
 ################################################################################
 # Author   : (c) Miquel Torrens, 2015.10.18
-# Modified :     -
+# Modified :     Miquel Torrens, 2015.11.08
 ################################################################################
 
 ################################################################################
@@ -16,6 +16,7 @@
 # 3. cq()
 # 4. load.packages()
 # 5. check.version()
+# 6. factor2char()
 ################################################################################
 
 ################################################################################
@@ -112,5 +113,16 @@ check.version <- function(dev.R = NULL) {
     warning('This project was developed under R version ', dev.R,
             '.\nCurrently using: R ', exc.R)
   }
+}
+
+################################################################################
+factor2char <- function(df) {
+################################################################################
+  for (col in 1:ncol(df)) {
+    if (is.factor(df[, col])) {
+      df[, col] <- as.character(df[, col])
+    }
+  }
+  return(df)
 }
 # END OF SCRIPT

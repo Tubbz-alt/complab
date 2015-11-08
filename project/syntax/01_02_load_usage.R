@@ -22,7 +22,7 @@ main.01.02 <- function() {
   file <- paste(INPUTDIR, 'train_triplets.txt', sep = '')
   usage <- read.table(file = file); cat('Loaded file:', file, '\n')
 
-  # Polishing
+  # Tidying up
   colnames(usage) <- c('user', 'song', 'play_count')
   rownames(usage) <- NULL
 
@@ -31,8 +31,12 @@ main.01.02 <- function() {
   cat('Saved file:', paste(DATADIR, 'usage_data.RData', sep = ''), '\n')
 
   file <- paste(INPUTDIR, 'mxm_dataset_train.txt', sep = '')
-  #lyrics <- read.table(file = file); cat('Loaded file:', file, '\n')
   lyrics <- readLines(file); cat('Loaded file:', file, '\n')
+
+  # Save
+  warning('TO DO: Break down lyrics object\n')
+  save(lyrics, file = paste(DATADIR, 'lyrics_data.RData', sep = ''))
+  cat('Saved file:', paste(DATADIR, 'lyrics_data.RData', sep = ''), '\n')
 
   # Means
   if (FALSE) {
@@ -51,7 +55,6 @@ main.01.02 <- function() {
     table(aux1[aux1 < 1000])
     hist(aux1[aux1 < 100])
     hist(aux1[aux1 < 1000])
-
 
     saux2 <- aux2[order(aux2, decreasing = TRUE)]
     hist(saux2[1:100])
