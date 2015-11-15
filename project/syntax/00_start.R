@@ -6,7 +6,7 @@
 # Script   : 00_start.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.10.18
-# Modified : Miquel Torrens, 2015.11.08
+# Modified : Miquel Torrens, 2015.11.15
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 ################################################################################
@@ -19,7 +19,7 @@ args <- commandArgs(trailingOnly = TRUE)
 if (is.na(args[1]) || .Platform['OS.type'] != 'unix') {
   PATH <- '/Users/miquel/Desktop/bgse/projects/complab/'
 } else {
-  PATH <- system(toString(args[1]), intern = TRUE)
+  PATH <- paste(system(toString(args[1]), intern = TRUE), '/', sep = '')
 }
 
 # Project Name
