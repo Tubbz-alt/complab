@@ -6,7 +6,7 @@
 -- Script   : data_structure.sql
 -- -----------------------------------------------------------------------------
 -- Author   : Miquel Torrens, 2015.11.08
--- Modified : Miquel Torrens, 2015.11.15
+-- Modified : Bálint Ván, 2015.11.20
 -- -----------------------------------------------------------------------------
 
 -- Create the database
@@ -142,6 +142,24 @@ CREATE TABLE song_tags (
   FOREIGN KEY (song_id) REFERENCES song_metadata (song_id)
 );
 
+-- Create table with top 5000 words chosen by the millionsongs data set.
+DROP TABLE IF EXISTS words;
+CREATE TABLE words (
+  word_id INT(6),
+  word VARCHAR(50),
+  PRIMARY KEY (word_id)
+);
+
+-- Create table with word counts.
+DROP TABLE IF EXISTS word_count;
+CREATE TABLE word_count (
+  word_id INT(6),
+  song_id VARCHAR(18),
+  word_count int(5),
+  PRIMARY KEY (word_id, song_id),
+  FOREIGN KEY (song_id) REFERENCES song_metadata (song_id),
+  FOREIGN KEY (word_id) REFERENCES words (word_id)
+);
 -- Foreign keys
 -- ALTER TABLE artist_relations
 -- ADD CONSTRAINT song_id FOREIGN KEY (song_id)
