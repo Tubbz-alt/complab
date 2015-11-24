@@ -52,7 +52,7 @@ main.02 <- function() {
   }
 
   for (j in c('artist_name', 'release_name', 'title')) {
-    song.md[, j] <- iconv(song.md[, col], from = 'utf8', to = 'ASCII//TRANSLIT')
+    song.md[, j] <- iconv(song.md[, j], from = 'utf8', to = 'ASCII//TRANSLIT')
   }
 
   # Write table on MySQL

@@ -14,6 +14,7 @@
 ################################################################################
 # Generic
 source(paste(SCRIPTSDIR, 'functions_generic.R', sep = ''))
+source(paste(SCRIPTSDIR, 'functions_google.R', sep = ''))
 ################################################################################
 
 ################################################################################
@@ -43,8 +44,6 @@ source(paste(SYNTAXDIR, '05_read_results.R', sep = ''))
 
 ################################################################################
 # Execute if necessary
-if (length(args) == 1) { args <- c(args, 'empty') }
-if (length(args) == 2) { args <- c(args, 'empty') }
 f0101a <- paste(DATADIR, 'song_database.RData', sep = '')
 f0102a <- paste(DATADIR, 'lyrics_data.RData', sep = '')
 f0102b <- paste(DATADIR, 'usage_data.RData', sep = '')

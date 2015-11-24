@@ -6,7 +6,7 @@
 -- Script   : data_structure.sql
 -- -----------------------------------------------------------------------------
 -- Author   : Miquel Torrens, 2015.11.08
--- Modified : Balint Van, 2015.11.20
+-- Modified : Miquel Torrens, 2015.11.15
 -- -----------------------------------------------------------------------------
 
 -- Create the database
@@ -142,24 +142,6 @@ CREATE TABLE song_tags (
   FOREIGN KEY (song_id) REFERENCES song_metadata (song_id)
 );
 
--- Create table with top 5000 words chosen by the data set.
-DROP TABLE IF EXISTS words;
-CREATE TABLE words (
-  word_id INT(6),
-  word VARCHAR(50),
-  PRIMARY KEY (word_id)
-);
-
--- Create table with word counts.
-DROP TABLE IF EXISTS word_count;
-CREATE TABLE word_count (
-  word_id INT(6),
-  song_id VARCHAR(18),
-  word_count int(5),
-  PRIMARY KEY (word_id, song_id),
-  FOREIGN KEY (song_id) REFERENCES song_metadata (song_id),
-  FOREIGN KEY (word_id) REFERENCES words (word_id)
-);
 -- Foreign keys
 -- ALTER TABLE artist_relations
 -- ADD CONSTRAINT song_id FOREIGN KEY (song_id)
@@ -203,7 +185,6 @@ CREATE INDEX idx1_song_id ON song_metadata (song_id);
 CREATE INDEX idx2_song_id ON artist_relations (song_id);
 CREATE INDEX idx3_song_id ON artist_terms (song_id);
 CREATE INDEX idx4_song_id ON song_tags (song_id);
-CREATE INDEX idx3_word_id ON word_count (song_id);
 
 -- Artist ID
 CREATE INDEX idx1_artist_id ON song_metadata (artist_id);
@@ -215,6 +196,4 @@ CREATE INDEX idx4_artist_id ON song_tags (artist_id);
 CREATE INDEX idx_relation_id ON artist_relations (relation_id);
 CREATE INDEX idx_term_artist_id ON artist_terms (term_artist_id);
 CREATE INDEX idx_song_tag_id ON song_tags (song_tag_id);
-CREATE INDEX idx1_word_id ON words (word_id);
-CREATE INDEX idx2_word_id ON word_count (word_id);
 -- END OF SCRIPT
