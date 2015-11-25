@@ -6,7 +6,7 @@
 # Script   : 00_start.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.10.18
-# Modified : Miquel Torrens, 2015.11.15
+# Modified : Miquel Torrens, 2015.11.25
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 ################################################################################
@@ -62,7 +62,8 @@ check.version(dev.R = '3.2.2 x86_64')
 bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 
 # Packages needed
-load.packages(pkgs = c('data.table', 'RMySQL', 'gdata', 'RCurl', 'RJSONIO'))
+load.packages(pkgs = c('data.table', 'RMySQL', 'gdata', 'RCurl', 'RJSONIO',
+                       'rgdal', 'sp', 'maptools'))
 
 # Stone parameters
 today <- format(Sys.time(), '%Y%m%d')
