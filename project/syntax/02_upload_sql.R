@@ -22,7 +22,7 @@ main.02 <- function() {
   conf.file <- paste(INPUTDIR, 'mysql_conn.conf', sep = '')
   cat('MySQL configuration read from:', conf.file, '\n')
   conf <- readLines(conf.file, warn = FALSE)
-  conf <- trim(strsplit(conf, ':'))
+  conf <- gdata::trim(strsplit(conf, ':'))
   user <- conf[[1]][2]
   pass <- conf[[2]][2]
   host <- conf[[3]][2]
