@@ -252,9 +252,9 @@ main.03.05 <- function() {
     aux <- totals[which(totals[, 1] == cty), ]
     aux[, 3] <- as.numeric(aux[, 3])
     #model <- arima(log(as.numeric(aux[, 3]) + 0.01), c(3, 0, 1))
-    if (cty %in% c('Canada', 'Sweden')) {
-      pred <- aux[5, 3] * (aux[5, 3] / aux[5, 3])
-    } else  if (cty == 'Australia') {
+    if (cty %in% c('Canada', 'Sweden', 'Spain', 'Norway', 'Mexico')) {
+      pred <- aux[6, 3] * log(aux[6, 3] / aux[5, 3])
+    } else  if (cty %in% c('Australia')) {
       model <- auto.arima(as.numeric(aux[4:5, 3]))
       pred <- max(exp(as.data.frame(forecast(model, 1))[, 1]) - 1, 0)
     } else {
@@ -273,6 +273,16 @@ main.03.05 <- function() {
   }
   decade <- decade[order(decade[, ncol(decade)], decreasing = TRUE), ]
   colnames(decade) <- c('country', paste(c(5:9, 0:1), '0s', sep = ''))
+
+  # Inequality index
+  herf <- apply(decade[, 2:ncol(decade)], 2, Herfindahl)
+  herf <- as.data.frame(t(as.data.frame(c('Herfindahl Index', herf))))
+  herf <- factor2char(herf)
+  for (j in 2:ncol(herf)) {
+    herf[, j] <- round(as.numeric(herf[, j]), 2)
+  }
+  colnames(herf) <- colnames(decade)
+  decade <- rbind.data.frame(herf, decade)
   rownames(decade) <- NULL  
 
   # Save results

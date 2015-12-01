@@ -6,7 +6,7 @@
 # Script   : 04_upload_results.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.11.25
-# Modified : -
+# Modified : Miquel Torrens, 2015.12.01
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 # source(paste(SYNTAXDIR, '04_upload_results.R', sep = ''))
@@ -34,6 +34,26 @@ main.04 <- function() {
   ##############################################################################
 
   ##############################################################################
+  # 5. Origin
+  file <- paste(DATADIR, 'worldwide_prediction.RData', sep = '')
+  production <- get(load(file = file)); cat('Loaded file:', file, '\n')
+
+  # Little cleaning
+  rownames(production) <- NULL
+  colnames(production) <- c('country', 'fifties', 'sixties', 'seventies',
+                            'eighties', 'nineties', 'zeroes', 'tens')
+
+  # Write table on MySQL
+  cat('Writing table: world_production... ')
+  dbWriteTable(conn = conn,
+               name = 'world_production',
+               value = production,
+               row.names = FALSE,
+               #overwrite = TRUE)
+               append = TRUE)
+  ##############################################################################
+
+  ##############################################################################
   # 6. Recommendations
   # Load the recommendations
   file <- paste(DATADIR, 'results_recommender.RData', sep = '')
@@ -55,12 +75,6 @@ main.04 <- function() {
                #overwrite = TRUE)
                append = TRUE)
   ##############################################################################
-
-  
-
-
-
-
 
   ##############################################################################
   # End connection
