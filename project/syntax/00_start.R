@@ -6,7 +6,7 @@
 # Script   : 00_start.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.10.18
-# Modified : Miquel Torrens, 2015.11.30
+# Modified : Miquel Torrens, 2015.12.01
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 ################################################################################
@@ -64,7 +64,13 @@ bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 # Packages needed
 load.packages(pkgs = c('data.table', 'RMySQL', 'gdata', 'RCurl', 'RJSONIO',
                        'rgdal', 'sp', 'maptools', 'rworldmap',  'RColorBrewer',
-                       'classInt', 'forecast'))
+                       'classInt', 'forecast', 'ineq', 'devtools'))
+
+# Special package
+if (! require(ggbiplot)) {
+  install_github('vqv/ggbiplot')
+}
+library(ggbiplot); cat('Library: ggbiplot\n')
 
 # Stone parameters
 today <- format(Sys.time(), '%Y%m%d')
