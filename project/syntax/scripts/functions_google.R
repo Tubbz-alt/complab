@@ -24,8 +24,9 @@ google.geolocate <- function(text = NULL, english = TRUE, dir = NULL) {
   require(RJSONIO)
 
   # Proper form
-  new.text <- gsub('[[:punct:]]', '', text)
+  new.text <- trim(gsub('[[:punct:]]', '', text))
   new.text <- gsub(' ', '+', new.text)
+  new.text <- gsub('\\t', '', new.text)
 
   # Build URL
   txt1 <- 'http://maps.googleapis.com/maps/api/geocode/json?address='
@@ -43,8 +44,3 @@ google.geolocate <- function(text = NULL, english = TRUE, dir = NULL) {
   return(dwl)
 }
 # END OF SCRIPT
-
-  #results.geometry.location.lat
-  #results.geometry.location.lng
-  #results.geometry.location_type
-  #results.address_components.long_name

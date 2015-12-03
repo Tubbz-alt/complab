@@ -6,7 +6,7 @@
 # Script   : 03_05_perform_origin.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.11.30
-# Modified : -
+# Modified : Miquel Torrens, 2015.12.03
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 # source(paste(SYNTAXDIR, '03_05_perform_origin.R', sep = ''))
@@ -20,9 +20,9 @@ main.03.05 <- function() {
 
   # Define new directories
   GEODIR <- paste(DATADIR, 'geo_json/', sep = '')
-  MAPDIR <- paste(INPUTDIR, 'shp/', sep = '')
+  #MAPDIR <- paste(INPUTDIR, 'shp/', sep = '')
   try(dir.create(GEODIR, showWarnings = FALSE))
-  try(dir.create(MAPDIR, showWarnings = FALSE))
+  #try(dir.create(MAPDIR, showWarnings = FALSE))
 
   # Load data
   file <- paste(DATADIR, 'song_metadata.RData', sep = '')
@@ -111,10 +111,10 @@ main.03.05 <- function() {
   # Plor music points
   wmap <- getMap(resolution = 'coarse')
   map.file <- paste(OUTPUTDIR, 'point_map.png', sep = '')
-  png(map.file)
+  if (! file.exists(map.file)) { png(map.file) }
   plot(wmap, col = 'lightyellow', main = 'Artist locations')
   points(pts, pch = 16, col = 'red', cex = 0.5)
-  dev.off()
+  if (! file.exists(map.file)) { dev.off() }
   cat('Plotted map:', map.file, '\n')
 
   # Country-level data
@@ -134,14 +134,13 @@ main.03.05 <- function() {
   class <- classIntervals(pvar, ncolors, style = 'jenks')
   colors <- findColours(class, pal)
 
+  # Store map
   map.file <- paste(OUTPUTDIR, 'country_map.png', sep = '')
-  png(map.file)
+  if (! file.exists(map.file)) { png(map.file) }
   plot(wmap, col = colors, main = 'Music origins')
-  plot(wmap[which(wmap@data[, 'GLOCAF'] == 'Europe' &
-                  wmap@data[, 'ADM0_DIF'] == 0), ], col = colors, main = 'Music origins')
   #legend('bottomleft', legend = names(attr(colors, 'table')),
   #       fill = attr(colors, 'palette'), cex = 0.6, bty = 'n')
-  dev.off()
+  if (! file.exists(map.file)) { dev.off() }
   cat('Plotted map:', map.file, '\n')
 
   # European map
@@ -163,9 +162,9 @@ main.03.05 <- function() {
   class <- classIntervals(pvar, ncolors, style = 'jenks')
   colors <- findColours(class, pal)
   map.file <- paste(OUTPUTDIR, 'europe_map.png', sep = '')
-  png(map.file)
+  if (! file.exists(map.file)) { png(map.file) }
   plot(eurmap, col = colors, main = 'Music origins')
-  dev.off()
+  if (! file.exists(map.file)) { dev.off() }
   cat('Plotted map:', map.file, '\n')
 
   # # U.S. and U.K. maps
