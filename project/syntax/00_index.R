@@ -6,7 +6,7 @@
 # Script   : 00_index.R
 ################################################################################
 # Author   : Miquel Torrens, 2015.10.18
-# Modified : Miquel Torrens, 2015.11.15
+# Modified : Miquel Torrens, 2015.12.17
 ################################################################################
 # source('/Users/miquel/Desktop/bgse/projects/complab/syntax/00_start.R')
 ################################################################################
@@ -15,6 +15,7 @@
 # Generic
 source(paste(SCRIPTSDIR, 'functions_generic.R', sep = ''))
 source(paste(SCRIPTSDIR, 'functions_google.R', sep = ''))
+source(paste(SCRIPTSDIR, 'functions_lyrics.R', sep = ''))
 ################################################################################
 
 ################################################################################
@@ -23,6 +24,7 @@ source(paste(SCRIPTSDIR, 'functions_google.R', sep = ''))
 source(paste(SYNTAXDIR, '01_01_load_raw.R', sep = ''))
 source(paste(SYNTAXDIR, '01_02_load_usage.R', sep = ''))
 source(paste(SYNTAXDIR, '01_03_organize.R', sep = ''))
+source(paste(SYNTAXDIR, '01_04_lyrics_setup.R', sep = ''))
 
 # SQL Data upload
 source(paste(SYNTAXDIR, '02_upload_sql.R', sep = ''))
@@ -50,11 +52,13 @@ f0102b <- paste(DATADIR, 'usage_data.RData', sep = '')
 f0103a <- paste(DATADIR, 'song_metadata.RData', sep = '')
 f0103b <- paste(DATADIR, 'song_analysis.RData', sep = '')
 f0103c <- paste(DATADIR, 'song_guide.RData', sep = '')
+f0104a <- paste(DATADIR, 'clean_lyrics.RData', sep = '')
 
 if (args[2] == 'install') {
   if (args[3] == 'force' || ! file.exists(f0101a)) { main.01.01() }
   if (args[3] == 'force' || ! file.exists(f0102a)) { main.01.02() }
   if (args[3] == 'force' || ! file.exists(f0103a)) { main.01.03() }
+  if (args[3] == 'force' || ! file.exists(f0104a)) { main.01.04() }
   if (args[3] == 'force') { main.02() }
 } else if (args[2] == 'analysis') {
   main.03.01()
