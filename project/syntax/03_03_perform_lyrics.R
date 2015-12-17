@@ -40,10 +40,12 @@ main.03.03 <- function() {
   all <- all[order(all[, 'freq']),]
 
   # Making wordcloud
-  png(paste(OUTPUTDIR, 'wordcloud.png', sep = ''), width = 800, height = 800)
+  file <- paste(OUTPUTDIR, 'wordcloud.png', sep = '')
+  png(file, width = 800, height = 800)
   wordcloud(all[, 'word'], all[, 'freq'],  max.words = 150, scale = c(8, 1),
             colors = brewer.pal(8, 'Dark2'))
   dev.off()
+  cat('Written file:', file, '\n')
 
   # End script
   end.script(begin = bs, end = Sys.time())
