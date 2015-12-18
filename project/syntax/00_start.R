@@ -65,11 +65,12 @@ bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 load.packages(pkgs = c('data.table', 'RMySQL', 'gdata', 'RCurl', 'RJSONIO',
                        'rgdal', 'sp', 'maptools', 'rworldmap',  'RColorBrewer',
                        'classInt', 'forecast', 'ineq', 'devtools', 'plyr',
-                       'wordcloud', 'tidyr', 'tm'))
+                       'wordcloud', 'tidyr', 'tm', 'grid'))
 
 # Special package
 if (! require(ggbiplot)) {
   install_github('vqv/ggbiplot')
+  cat('Installed package (from github): ggbiplot\n')
 }
 library(ggbiplot); cat('Library: ggbiplot\n')
 
