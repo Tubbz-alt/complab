@@ -20,7 +20,8 @@ if (length(args) == 2) { args <- c(args, 'empty') }
 
 # Root path
 if (is.na(args[1]) || .Platform['OS.type'] != 'unix') {
-  PATH <- '/Users/miquel/Desktop/bgse/projects/complab/'
+  PATH <- '/home/ubuntu/project/'
+  #PATH <- '/Users/miquel/Desktop/bgse/projects/complab/'
 } else {
   PATH <- paste(system(toString(args[1]), intern = TRUE), '/', sep = '')
 }
@@ -65,7 +66,7 @@ bs <- begin.script(script = paste('[', PROJECT, '] 00_start.R', sep = ''))
 load.packages(pkgs = c('data.table', 'RMySQL', 'gdata', 'RCurl', 'RJSONIO',
                        'rgdal', 'sp', 'maptools', 'rworldmap',  'RColorBrewer',
                        'classInt', 'forecast', 'ineq', 'devtools', 'plyr',
-                       'wordcloud', 'tidyr', 'tm', 'grid'))
+                       'wordcloud', 'tm', 'grid'))#, 'tidyr'))
 
 # Special package
 if (! require(ggbiplot)) {
@@ -79,6 +80,36 @@ today <- format(Sys.time(), '%Y%m%d')
 
 # CRS
 CRS_GOOGLE <- CRS('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
+################################################################################
+
+################################################################################
+# Execute if necessary
+f0101a <- paste(DATADIR, 'song_database.RData', sep = '')
+f0102a <- paste(DATADIR, 'lyrics_data.RData', sep = '')
+f0102b <- paste(DATADIR, 'usage_data.RData', sep = '')
+f0103a <- paste(DATADIR, 'song_metadata.RData', sep = '')
+f0103b <- paste(DATADIR, 'song_analysis.RData', sep = '')
+f0103c <- paste(DATADIR, 'song_guide.RData', sep = '')
+f0104a <- paste(DATADIR, 'clean_lyrics.RData', sep = '')
+
+if (args[2] == 'install') {
+  if (args[3] == 'force' || ! file.exists(f0101a)) { main.01.01() }
+  if (args[3] == 'force' || ! file.exists(f0102a)) { main.01.02() }
+  if (args[3] == 'force' || ! file.exists(f0103a)) { main.01.03() }
+  if (args[3] == 'force' || ! file.exists(f0104a)) { main.01.04() }
+  #if (args[3] == 'force') { main.02() }
+  main.02()
+} else if (args[2] == 'analysis') {
+  main.03.01()
+  main.03.02()
+  main.03.03()
+  main.03.04()
+  main.03.05()
+  main.03.06()
+  main.04()
+}# else if (args[2] == 'run') {
+#  main.05()
+#}
 
 # Record
 end.script(begin = bs, end = Sys.time()); rm(bs)

@@ -6,9 +6,10 @@
 -- Script   : results_framework.sql
 -- -----------------------------------------------------------------------------
 -- Author   : Miquel Torrens, 2015.11.25
--- Modified : Miquel Torrens, 2015.12.01
+-- Modified : Miquel Torrens, 2015.12.19
 -- -----------------------------------------------------------------------------
 
+-- Choose database
 USE omsong;
 
 -- Create table with recommender results
@@ -29,6 +30,7 @@ CREATE TABLE results_recommender (
   PRIMARY KEY (song_id)
 );
 
+-- Create table with world music production rankings
 DROP TABLE IF EXISTS world_production;
 CREATE TABLE world_production (
   country VARCHAR(32),
@@ -42,9 +44,19 @@ CREATE TABLE world_production (
   PRIMARY KEY (country)
 );
 
+-- Table to store the aggregated genre of the songs
+DROP TABLE IF EXISTS song_genre_decade;
+CREATE TABLE song_genre_decade (
+  song_id VARCHAR(18),
+  genre_category VARCHAR(6),
+  decade VARCHAR(5),
+  PRIMARY KEY (song_id)
+);
+
 -- Create indexes
 -- Song ID
 CREATE INDEX idxr1_song_id ON results_recommender (song_id);
+CREATE INDEX idxr2_song_id ON song_genre_decade (song_id);
 
 -- Artist ID
 CREATE INDEX idxr1_artist_id ON results_recommender (artist_id);

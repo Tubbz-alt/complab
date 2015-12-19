@@ -50,6 +50,11 @@ main.03.02 <- function() {
   song.md[opt6, 'decade'] <- '2000s'
   song.md[opt7, 'decade'] <- '2010s'
 
+  # Save the category for web queries
+  song.decade <- song.md[, c('song_id', 'decade')]
+  file <- paste(DATADIR, 'song_decade.RData', sep = '')
+  save(song.decade, file = file); cat('Saved file:', file, '\n')
+
   # Undo numbers of the year
   song.md[, 'songs_year'] <- as.character(song.md[, 'songs_year'])
 

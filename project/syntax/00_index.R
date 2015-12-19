@@ -43,33 +43,4 @@ source(paste(SYNTAXDIR, '04_upload_results.R', sep = ''))
 # Read results from app
 source(paste(SYNTAXDIR, '05_read_results.R', sep = ''))
 ################################################################################
-
-################################################################################
-# Execute if necessary
-f0101a <- paste(DATADIR, 'song_database.RData', sep = '')
-f0102a <- paste(DATADIR, 'lyrics_data.RData', sep = '')
-f0102b <- paste(DATADIR, 'usage_data.RData', sep = '')
-f0103a <- paste(DATADIR, 'song_metadata.RData', sep = '')
-f0103b <- paste(DATADIR, 'song_analysis.RData', sep = '')
-f0103c <- paste(DATADIR, 'song_guide.RData', sep = '')
-f0104a <- paste(DATADIR, 'clean_lyrics.RData', sep = '')
-
-if (args[2] == 'install') {
-  if (args[3] == 'force' || ! file.exists(f0101a)) { main.01.01() }
-  if (args[3] == 'force' || ! file.exists(f0102a)) { main.01.02() }
-  if (args[3] == 'force' || ! file.exists(f0103a)) { main.01.03() }
-  if (args[3] == 'force' || ! file.exists(f0104a)) { main.01.04() }
-  if (args[3] == 'force') { main.02() }
-} else if (args[2] == 'analysis') {
-  main.03.01()
-  main.03.02()
-  main.03.03()
-  main.03.04()
-  main.03.05()
-  main.03.06()
-  main.04()
-} else if (args[2] == 'run') {
-  main.05()
-}
-################################################################################
 # END OF SCRIPT

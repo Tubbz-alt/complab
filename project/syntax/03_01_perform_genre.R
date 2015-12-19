@@ -85,6 +85,11 @@ main.03.01 <- function() {
   song.md[grepl(txt6, song.md[,'updated_genre']), 'genre_category'] <- 'EDM'
   song.md[grepl(txt7, song.md[,'updated_genre']), 'genre_category'] <- 'Latin'
 
+  # Save the category for web queries
+  genre.cat <- song.md[, c('song_id', 'genre_category')]
+  file <- paste(DATADIR, 'genre_category.RData', sep = '')
+  save(genre.cat, file = file); cat('Saved file:', file, '\n')
+
   # Select variables 
   cols <- c('key_confidence', 'loudness', 'tempo',
             'artist_hotttnesss', 'song_key', 'mode_confidence',
@@ -127,35 +132,41 @@ main.03.01 <- function() {
        ggtitle('First Two Principal Components of 11 Variables of Each Song')
 
   ##############################################################################
-  # Customize my plot
+  # Customize the plot
   # Function to rescale the x & y positions of the lines and labels
-  aux <- function(a0, a1, M = M) {
-    l <- lapply(as.list(environment()), as.numeric)
-    out <- M * (l$a1 - l$a0) + l$a0
-    grid::unit(out, 'native')
-  }
-
-  # Get list of grobs in current graphics window
-  grobs <- grid.ls(print = FALSE)  
-
-  # Find segments grob for the arrows
-  s_id <- grobs$name[grep('segments', grobs$name)]
-
-  # Edit length and colour of lines
-  seg <- grid.get(gPath(s_id[2]))
-  grid.edit(gPath(s_id[2]),
-            x1 = aux(seg$x0, seg$x1, 1), 
-            y1 = aux(seg$y0, seg$y1, 1),
-            gp = gpar(col = 'black'))
-
   # Plot
   png.file <- paste(OUTPUTDIR, 'pca_genre.png', sep = '')
   if (! file.exists(png.file)) {
+    aux <- function(a0, a1, M = M) {
+      l <- lapply(as.list(environment()), as.numeric)
+      out <- M * (l$a1 - l$a0) + l$a0
+      grid::unit(out, 'native')
+    }
+
+    # Get list of grobs in current graphics window
+    grobs <- grid.ls(print = FALSE)  
+
+    # Find segments grob for the arrows
+    s_id <- grobs$name[grep('segments', grobs$name)]
+
+    # Edit length and colour of lines
+    seg <- grid.get(gPath(s_id[2]))
+    grid.edit(gPath(s_id[2]),
+              x1 = aux(seg$x0, seg$x1, 1), 
+              y1 = aux(seg$y0, seg$y1, 1),
+              gp = gpar(col = 'black'))
+    # Final plot
     png(png.file, width = 600, height = 600)
     g
     dev.off()    
   }
   cat('Plotted PCA:', png.file, '\n')
+
+  ##############################################################################
+  # End connection
+  dbDisconnect(conn)
+  cat('Disconnected from DB: omsong\n')
+  ##############################################################################
 
   # End script
   end.script(begin = bs, end = Sys.time())

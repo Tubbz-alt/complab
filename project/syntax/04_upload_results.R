@@ -35,6 +35,30 @@ main.04 <- function() {
 
   ##############################################################################
   # 5. Origin
+  file1 <- paste(DATADIR, 'genre_category.RData', sep = '')
+  file2 <- paste(DATADIR, 'song_decade.RData', sep = '')
+  genre.cat <- get(load(file = file1)); cat('Loaded file:', file1, '\n')
+  song.decade <- get(load(file = file2)); cat('Loaded file:', file2, '\n')
+
+  # Merge the tables
+  m <- match(genre.cat[, 1], song.decade[, 1])
+  genre.decade <- genre.cat
+  genre.decade[, 'decade'] <- song.decade[m, 2]
+  genre.decade[which(genre.decade[, 'decade'] == 'other'), 'decade'] <- NA
+
+  # Write table on MySQL
+  cat('Writing table: song_genre_category... ')
+  dbWriteTable(conn = conn,
+               name = 'song_genre_decade',
+               value = genre.decade,
+               row.names = FALSE,
+               #overwrite = TRUE)
+               append = TRUE)
+  cat('Done!\n')
+  ##############################################################################
+
+  ##############################################################################
+  # 5. Origin
   file <- paste(DATADIR, 'worldwide_prediction.RData', sep = '')
   production <- get(load(file = file)); cat('Loaded file:', file, '\n')
 
@@ -51,6 +75,7 @@ main.04 <- function() {
                row.names = FALSE,
                #overwrite = TRUE)
                append = TRUE)
+  cat('Done!\n')
   ##############################################################################
 
   ##############################################################################
@@ -74,6 +99,7 @@ main.04 <- function() {
                row.names = FALSE,
                #overwrite = TRUE)
                append = TRUE)
+  cat('Done!\n')
   ##############################################################################
 
   ##############################################################################
