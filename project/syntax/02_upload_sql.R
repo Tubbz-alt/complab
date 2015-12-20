@@ -55,6 +55,10 @@ main.02 <- function() {
     song.md[, j] <- iconv(song.md[, j], from = 'utf8', to = 'ASCII//TRANSLIT')
   }
 
+  # Add full name for web display
+  song.md[, 'artist_title'] <- paste(song.md[, 'artist_name'],
+                                     song.md[, 'title'], sep = ' - ')
+
   # Write table on MySQL
   cat('Writing table: song_metadata... ')
   dbWriteTable(conn = conn,

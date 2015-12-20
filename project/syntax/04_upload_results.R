@@ -34,7 +34,7 @@ main.04 <- function() {
   ##############################################################################
 
   ##############################################################################
-  # 5. Origin
+  # 1. + 2. Genre and time evolution
   file1 <- paste(DATADIR, 'genre_category.RData', sep = '')
   file2 <- paste(DATADIR, 'song_decade.RData', sep = '')
   genre.cat <- get(load(file = file1)); cat('Loaded file:', file1, '\n')
@@ -44,7 +44,10 @@ main.04 <- function() {
   m <- match(genre.cat[, 1], song.decade[, 1])
   genre.decade <- genre.cat
   genre.decade[, 'decade'] <- song.decade[m, 2]
-  genre.decade[which(genre.decade[, 'decade'] == 'other'), 'decade'] <- NA
+  nas1 <- which(genre.decade[, 'decade'] == 'other')
+  nas2 <- which(genre.decade[, 'genre_category'] == 'others')
+  genre.decade[nas1, 'decade'] <- NA
+  genre.decade[nas2, 'genre_category'] <- NA
 
   # Write table on MySQL
   cat('Writing table: song_genre_category... ')
@@ -63,9 +66,11 @@ main.04 <- function() {
   production <- get(load(file = file)); cat('Loaded file:', file, '\n')
 
   # Little cleaning
+  production <- cbind.data.frame(1:nrow(production), production)
   rownames(production) <- NULL
-  colnames(production) <- c('country', 'fifties', 'sixties', 'seventies',
-                            'eighties', 'nineties', 'zeroes', 'tens')
+  colnames(production) <- c('rank', 'country', 'fifties', 'sixties',
+                            'seventies', 'eighties', 'nineties',
+                            'two_thousands', 'twenty_tens')
 
   # Write table on MySQL
   cat('Writing table: world_production... ')

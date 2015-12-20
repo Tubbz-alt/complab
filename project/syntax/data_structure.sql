@@ -101,6 +101,7 @@ CREATE TABLE song_metadata (
   songs_year INT(4),
   play_count INT(5),
   unique_users INT(5),
+  artist_title TEXT,
   PRIMARY KEY (song_id)
 );
 

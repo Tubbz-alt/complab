@@ -33,14 +33,15 @@ CREATE TABLE results_recommender (
 -- Create table with world music production rankings
 DROP TABLE IF EXISTS world_production;
 CREATE TABLE world_production (
+  rank INTEGER(2),
   country VARCHAR(32),
   fifties DECIMAL(4, 2),
   sixties DECIMAL(4, 2),
   seventies DECIMAL(4, 2),
   eighties DECIMAL(4, 2),
   nineties DECIMAL(4, 2),
-  zeroes DECIMAL(4, 2),
-  tens DECIMAL(4, 2),
+  two_thousands DECIMAL(4, 2),
+  twenty_tens DECIMAL(4, 2),
   PRIMARY KEY (country)
 );
 
