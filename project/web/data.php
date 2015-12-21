@@ -5,11 +5,21 @@
 <head>
 	<title>music_app</title>    
 	<link rel="stylesheet" type="text/css" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.css" type="text/css">
+  <link rel="stylesheet" href="themes/css/prettyPhoto.css" type="text/css">
+  <link rel="stylesheet/less" href="themes/css/main.less"/>
+  <script src="themes/js/less.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="themes/font-awesome/css/font-awesome.min.css">
+  <link charset="utf-8" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" media="screen" rel="stylesheet">
+  <link charset="utf-8" href="//fonts.googleapis.com/css?family=Roboto%20Condensed:400" media="screen" rel="stylesheet">
+  <script charset="utf-8" src="//www.gstatic.com/external_hosted/modernizr/modernizr.js"></script>
 </head>
 
 <body>
 	<!-- <div id="header"><h1>Product recommendation and customer analysis</h1></div> -->
-	<div id="header"><h1>Understanding the evolution of Music</h1></div>
+	<div id="header"><h1>The Evolution of Music</h1></div>
 
 	<div id="menu">
 		<a id="home_link" href="index.php" onclick="show_content('home'); return false;">Home</a> &middot;
@@ -19,98 +29,77 @@
 
 	<div id="main">
 
-<?php
+  <?php
 
-	include 'functions.php';
-	$GLOBALS['graphid'] = 0;
+      include 'functions.php';
+      $GLOBALS['graphid'] = 0;
 
-	// Load libraries
-	document_header();
+      // Load libraries
+      document_header();
 
-	// Create connection
-	$link = connect_to_db();
-?>
-	<div id="data">
-	
-	<h2>Data</h2>
-	
-	<p>In this section we carry out an initial analysis of past transactions, with the objective of gathering information about the categories, products and customers that tend to generate the highest revenues. The results shown in this page can provide insights to inform the activities of the sales team. This information, together with the recommendation system and customer analysis which we have implemented in the next page, can support the activities of the company's marketing team.</p>
-	
-	<p> The chart below shows the best selling products ranked according to the revenues they generate. Only the top 10 best selling products are shown.</p>
-
-<?php
-    // Total Revenue by product
+      // Create connection
+      $link = connect_to_db();
+    ?>
+    <div id="data">
+  
+    <h2>Data description</h2>
     
-    $query = "SELECT genre_category, COUNT(*) FROM omsong.song_genre_decade WHERE genre_category IS NOT NULL GROUP BY genre_category;";
-    $title = "Distribution of songs by classified genre";
-    query_and_print_graph($query,$title, "Total");
-?>
-	
-	<p>The chart below shows the results of a similar analysis, this time to rank the customers that contribute the most to total revenues. Only the top 20 customers are shown below.</p>
-	
-<?php
-	// Page body. Write here your queries
-	
-	$query = "SELECT decade, COUNT(*) FROM omsong.song_genre_decade WHERE decade IS NOT NULL GROUP BY decade;";
-	$title = "Distribution of songs by decade;";
-	query_and_print_graph($query,$title,"Euros");
-?>
+    <p>Below we provide the description of the most relevant and discriminant technical variables that we used in our analyses:</p>
+    
+    <ul style="list-style-type:circle">
+      <li><b>Key.</b> Measured as the estimated overall key of a track. Specifically, key is what identifies the tonic triad of the song. Tonic pertains to the first note of a scale, while triad is defined as a chord consisting of 3 notes.</li>
+      <li><b>Loudness.</b> Measured as the overall loudness in decibels, which is averaged across the entire track.</li>
+      <li><b>Tempo.</b> Measured as the estimated overall tempo of a track in beats per minute.  In its simplest term, tempo can be defined as speed of a given piece.</li>
+      <li><b>Mode.</b> Measured as confidence of mode estimation. Specifically, mode refers to the type of scale from which a song’s melodic content is derived.</li>
+      <li><b>Beat.</b> Measured as list of beat markers in seconds. Beat is a basic time unit of a piece of music. For example; each tick.</li>
+      <li><b>Bar.</b> Measured as list of bar markers in seconds. Bar is a segment of time defined as a given number of beats.</li>
+      <li><b>Tatum.</b> Measured as list of tatum markers in seconds. Specifically, tatum is the lowest regular pulse train that a listener intuitively infers from the timing of perceived musical events. For example, a time quantum.</li>
+      <li><b>Timbre.</b> Timbre is the quality of musical note that distinguishes different type of musical instruments or voices.</li>
+      <li><b>Pitch.</b> A value between 0 to 1 describing the relative dominance of every pitch in the chromatic scale.</li>
+      <li><b>Segment.</b> A set of sound entities (typically under a second) each relatively uniform in timbre and harmony. It includes timbre, pitch and loudness.</li>
+      <li><b>Artist Hotness.</b> Measure of how popular in terms of buzz the artist of the song is.</li>
+      <li><b>Artist familiarity.</b> Measure of how well-known the artist of the song is, which does not necessarily mean how much the artist is listened to.</li>
+    </ul>
 
-	<p>Once we have identified the best selling products and the top customers, we seek to improve our understanding of the relationships between them.</p>
-	
-	<p> We start from considering associations between product categories as observed in past transactions. Specifically, the chart below shown the links between pairs of categories according to the number of times they are bought together. The thicker the network edge connecting two categories, the more often those two categories are found together in the customers' baskets. The size of the circles is proportional to the total revenues that each product categories generates.</p>
-	
-	<center><img src="point_map.png" style="width: 80%"></center>
+    <h2>Data visualization</h2>
+  
+    <p>In this section we carry out an initial analysis on how the data is like. Especially, we display aspects of the metadata of the songs, rather than technical features, which are not very intuitive.</p>
+  
+    <p>To start with, we show the results of the classification of songs to aggregated genres. We classified songs to a specific genre based on an extensive list of tags that users assign to each song. The histogram below shows the frequency of each genre. As expected, rock is the most frequent genre as it is the most heterogenous in tags, covering a wide spectrum of sub-genres. Unfortunately not all songs are assigned a genre, given that not all of them were tagged by users at a song level or at artist level.</p>
 
-	<p>The information provided in the network graph above could be used to informed marketing campaigns that cover two or more product categories, so that the marketing team could deploy offers for products that belong to categories that "go together".
-	
-	<p> We then go one layer further to look at the associations between products. The following table shows a ranking of pairs of products that tend to be purchased together. The pairs of products are ranked according to the number of times each pair appears in a transaction. To focus on the most relevant information, we show only the product pairs that appear at least five times. While this information does not, on its own, provide a fully-fledge recommendation system, it can provide insight on customers behaviour that can be used in setting up marketing campaigns.</p>
-	
-<?php
-
-	// Most sold product pairs
-	
-	$query = "SELECT country, fifties, sixties, seventies, eighties, nineties, two_thousands, twenty_tens FROM omsong.world_production ORDER BY rank LIMIT 10;";
-	query_and_print_table($query, $title);
-?>
-	<p> In the next tab, we take this analysis further by implementing a product recommendation system and by looking at customers marginal contribution to revenues using a LASSO regression.</p>
-
-  <form name="search" method="POST" action="data.php" align = "center">
-
-    <select name="song_id">
-      <option value="">--Select Song--</option>
-      <?php
-      $sql=mysql_query("SELECT * FROM omsong.song_metadata ORDER BY artist_name;");
-      while($row=mysql_fetch_array($sql)) {
-        echo '<option value="'.$row['song_id'].'">'.substr($row['artist_title'],0,100).'</option>';
-      }
-      ?>
-    </select>
-    <input type="submit" name="submit" value="Apply">
-  </form>
+  <?php
+      // Total Revenue by product
+    
+      $query = "SELECT genre_category, COUNT(*) FROM omsong.song_genre_decade WHERE genre_category IS NOT NULL GROUP BY genre_category;";
+      $title = "Distribution of songs by classified genre";
+      query_and_print_graph($query,$title, "Total amount");
+  ?>
+  
+    <p>We also show how these songs are distributed over decades. There is a clear rise of music production through time, as we observe that music cumulates in the most recent years. The current decade has a small number because the data set has songs only until 2010. Again, not all songs are assigned a year of production so the 10,000 are not represented in the following graph.</p>
   
   <?php
-    
-    if (isset($_POST['submit'])) {
-
-      $query3="SELECT artist_title FROM omsong.song_metadata WHERE song_id = ";
-      $query3 .= "'".$_POST['song_id']."';";
-      $sql2=mysql_query($query3);
-      $sql3=mysql_fetch_array($sql2);
-
-      $title2 = "Recommended results for:";
-      $title2 .= " ".$sql3['artist_title'];
-      //$title2 .= " ".$_POST['artist_title']."blabla";
-      $query2 = "SELECT rank, recommended_artist, recommended_song, album FROM omsong.results_recommender WHERE song_id = ";
-      $query2 .= "'".$_POST['song_id']."' ORDER BY rank;";
-
-      query_and_print_table($query2,$title2);
-      
-    } 
+    // Page body. Write here your queries
   
+    $query = "SELECT decade, COUNT(*) FROM omsong.song_genre_decade WHERE decade IS NOT NULL GROUP BY decade;";
+    $title = "Distribution of songs by decade";
+    query_and_print_graph($query,$title,"Euros");
   ?>
 
-	</div>
+    <h3>Origin of the artists</h3>
+
+    <p>Most of the songs were endowed with a text description of the location of the artist, which we used to geolocate where their music was produced using the Google Maps API. As a result, below there is a point map of the location of all artists, which will be further analysed to determine concentration of music across time.</p>
+  
+    <center><img src="point_map.png" style="width: 70%"></center>
+
+    <h3>Text analysis</h3>
+
+    <p>Below we show a wordcloud of the songs for which we have been able to obtain the lyrics in a bag of words format. The wordcloud shows us the most frequent words occurring in the lyrics of the songs. We are not surprised that "love" is among the most frequent words used in songs. After removing the corresponding stopwords and keeping only those lyrics in English, we obtain the following picture:</p>
+  
+    <center><img src="wordcloud.png" style="width: 40%"></center>
+
+    <p> In the next tab, we take this analysis further by performing statistical analyses that will help us disentangle the composistion of our songs.</p>
+
+    </div>
 	
   </div>
 
