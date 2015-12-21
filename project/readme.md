@@ -30,11 +30,12 @@ To develop the music recommendation system we have used the Mahalanobis distance
 Installing the project
 ----------------------
 
-*Warning:* this project cannot be run cloning this directory because the size of the data does not allow storing it online at this point. Please contact the [authors](mailto:niti.mishra@barcelonagse.eu;miquel.torrens@barcelonagse.eu;balint.van@barcelonagse.eu) for access to the data.
+*Warning:* this project cannot be run cloning this directory because the size of the data does not allow storing it online at this point. Please contact the [authors](mailto:niti.mishra@barcelonagse.eu,miquel.torrens@barcelonagse.eu,balint.van@barcelonagse.eu) for access to the data.
 
 Once the data is stored, it is necessary to adapt user, password and host for the MySQL connection in the configuration file in the input folder, as well as in the connection in the .php file. Afterwards, run the following commands inside the project’s folder:
 
 `bash setup.sh install`
+
 `bash setup.sh run`
 
 Permissions to necessary folders may need to be granted before running the project.
