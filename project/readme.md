@@ -4,10 +4,10 @@ BGSE Dashboard Project: The Evolution of Music
 Overview
 --------
 
-This project implements exploration of music evolution and differences in music genre using Principal Component Analysis as well as exploration of origin and popularity of songs using log-linear OLS model. The project also comprises a music recommender system based on Mahalanobis distance of the technical features of a selected song.
+This project implements exploration of music evolution and differences in music genre using Principal Component Analysis (PCA) as well as exploration of origin and popularity of songs using log-linear OLS model. The project also comprises a music recommender system based on Mahalanobis distance of the technical features of a selected song.
 
 The objectives of the project are:
-  * Explore differences in various music genres and in music produced over time using Principal Component Analysis (PCA)
+  * Explore differences in various music genres and in music produced over time using PCA.
   * Explore change in the concentration or sparsity of music production across the world and over time. 
   * Investigate key built-in features that contribute to the popularity of a song.
   * Develop a music recommender system that suggests five closest candidate songs, ranked based on their Mahalanobis distance of the technical features of a selected song.
@@ -43,7 +43,7 @@ Permissions to necessary folders may need to be granted before running the proje
 Required packages
 -----------------
 
-The R analysis relies on the following packages. 
+The R analysis relies on the following packages:
 
   * `data.table`
   * `RMySQL`
