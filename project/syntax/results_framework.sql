@@ -27,7 +27,7 @@ CREATE TABLE results_recommender (
   recom_artist_name TEXT,
   recom_release_name TEXT,
   rank TINYINT(1),
-  PRIMARY KEY (song_id)
+  PRIMARY KEY (song_recom_id)
 );
 
 -- Create table with world music production rankings

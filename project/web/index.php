@@ -52,9 +52,9 @@ function show_content(optionsId) {
 	<div id="header"><h1>Understanding the evolution of Music</h1></div>
 
 	<div id="menu">
-		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
-		<a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data</a> &middot;
-		<a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analytics</a> 
+		<a id="home_link" href="index.php" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
+		<a id="data_link" href="data.php" onclick="show_content('data'); update_data_charts(); return false;">Data</a> &middot;
+		<a id="analysis_link" href="analytics.php" onclick="show_content('analysis'); return false;">Analytics</a> 
 	</div>
 
 	<div id="main">
@@ -80,8 +80,6 @@ function show_content(optionsId) {
 						
 		</div>	
 
-                <?php include 'data_and_analysis.php' ?>
-	
 	</div>
 
 	<div id="footer">Project team: Niti Mishra, Miquel Torrens and Balint Van</div>
