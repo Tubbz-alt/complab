@@ -1,5 +1,6 @@
 <?php ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <html>
 <head>
 	<title>music_app</title>    
@@ -81,7 +82,7 @@
       <?php
       $sql=mysql_query("SELECT * FROM omsong.song_metadata ORDER BY artist_name;");
       while($row=mysql_fetch_array($sql)) {
-        echo '<option value="'.$row['song_id'].'">'.$row['artist_title'].'</option>';
+        echo '<option value="'.$row['song_id'].'">'.substr($row['artist_title'],0,100).'</option>';
       }
       ?>
     </select>
@@ -97,10 +98,10 @@
       $sql2=mysql_query($query3);
       $sql3=mysql_fetch_array($sql2);
 
-      $title2 = "Recommended results:";
+      $title2 = "Recommended results for:";
       $title2 .= " ".$sql3['artist_title'];
       //$title2 .= " ".$_POST['artist_title']."blabla";
-      $query2 = "SELECT rank, recom_artist_name, recom_title, recom_release_name FROM omsong.results_recommender WHERE song_id = ";
+      $query2 = "SELECT rank, recommended_artist, recommended_song, album FROM omsong.results_recommender WHERE song_id = ";
       $query2 .= "'".$_POST['song_id']."' ORDER BY rank;";
 
       query_and_print_table($query2,$title2);

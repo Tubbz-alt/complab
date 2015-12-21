@@ -91,7 +91,10 @@ main.04 <- function() {
 
   # Add ID for the MySQL table
   ids <- paste(recom[, 'song_id'], recom[, 'recom_song_id'], sep = '_')
-  cols <- c('song_recom_id', colnames(recom))
+  #cols <- c('song_recom_id', colnames(recom))
+  cols <- c('song_recom_id', 'song_id', 'artist_id', 'title', 'artist_name',
+            'release_name', 'recom_song_id', 'recom_artist_id',
+            'recommended_song', 'recommended_artist', 'album', 'rank')
   recom <- cbind(ids, recom)
   colnames(recom) <- cols
   rownames(recom) <- NULL

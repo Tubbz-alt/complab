@@ -102,7 +102,7 @@ main.03.02 <- function() {
                 groups = decade[, 'decade'], ellipse = TRUE) + 
        scale_color_manual(name = 'DECADE', values = colr) + 
        xlim(-4.5, 5) + ylim(-4, 5) +
-       xlab('Principal Component 1') + ylab('Principal Component 2') +
+       #xlab('Principal Component 1') + ylab('Principal Component 2') +
        ggtitle('First Two Principal Components of 11 Variables of Each Song')
 
   ##############################################################################
@@ -122,17 +122,17 @@ main.03.02 <- function() {
 
   # Edit length and colour of lines
   seg <- grid.get(gPath(s_id[2]))
-  #grid.edit(gPath(s_id[2]),
-  #          x1 = aux(seg$x0, seg$x1, 1), 
-  #          y1 = aux(seg$y0, seg$y1, 1),
-  #          gp = gpar(col = 'black'))
+  #try(grid.edit(gPath(s_id[2]),
+  #              x1 = aux(seg$x0, seg$x1, 1), 
+  #              y1 = aux(seg$y0, seg$y1, 1),
+  #              gp = gpar(col = 'black')))
 
   # Plot
   png.file <- paste(OUTPUTDIR, 'pca_time.png', sep = '')
   if (! file.exists(png.file)) {
     png(png.file, width = 600, height = 600)
     g
-    dev.off()    
+    dev.off()
   }
   cat('Plotted PCA:', png.file, '\n')
 

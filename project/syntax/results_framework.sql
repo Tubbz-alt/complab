@@ -23,9 +23,12 @@ CREATE TABLE results_recommender (
   release_name TEXT,
   recom_song_id VARCHAR(18),
   recom_artist_id VARCHAR(18),
-  recom_title TEXT,
-  recom_artist_name TEXT,
-  recom_release_name TEXT,
+  -- recom_title TEXT,
+  recommended_song TEXT,
+  -- recom_artist_name TEXT,
+  recommended_artist TEXT,
+  -- recom_release_name TEXT,
+  album TEXT,
   rank TINYINT(1),
   PRIMARY KEY (song_recom_id)
 );

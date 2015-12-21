@@ -70,13 +70,13 @@ main.03.01 <- function() {
 
   # Create new column with genre category  
   song.md[, 'genre_category'] <- 'others'
-  txt1 <- 'rock|country|grunge|punk|metal|alternative rock'
+  txt1 <- 'rock|country|grunge|punk|metal|alternative rock|folk|indie'
   txt2 <- 'hip|hop|hiphop|hip-hop|rap|r&b|rnb'
   txt3 <- 'jazz|saxophone|sax'
-  txt4 <- 'blues'
-  txt5 <- 'motown|funk|soul|reggae|ska|bob-marley|bob marley'
-  txt6 <- 'edm|electronic|trance|house|tech|techno|dub'
-  txt7 <- 'latin|salsa|brazi|cuban|americana'
+  txt4 <- 'blues|swing'
+  txt5 <- 'motown|funk|soul|reggae|ska|bob-marley|bob marley|pop'
+  txt6 <- 'edm|electronic|trance|house|tech|techno|dub|disco|dance'
+  txt7 <- 'latin|salsa|brazi|cuban|americana|bossa|bolero'
   song.md[grepl(txt1, song.md[,'updated_genre']), 'genre_category'] <- 'Rock'
   song.md[grepl(txt2, song.md[,'updated_genre']), 'genre_category'] <- 'Hiphop'
   song.md[grepl(txt3, song.md[,'updated_genre']), 'genre_category'] <- 'Jazz'
@@ -128,7 +128,7 @@ main.03.01 <- function() {
                 groups = genre[, 'genre_category'], ellipse = TRUE) + 
        scale_color_manual(name = 'GENRE', values = colr) + 
        xlim(-4.5, 5) + ylim(-4, 5) +
-       xlab('Principal Component 1') + ylab('Principal Component 2') +
+       #xlab('Principal Component 1') + ylab('Principal Component 2') +
        ggtitle('First Two Principal Components of 11 Variables of Each Song')
 
   ##############################################################################
@@ -151,10 +151,11 @@ main.03.01 <- function() {
 
     # Edit length and colour of lines
     seg <- grid.get(gPath(s_id[2]))
-    grid.edit(gPath(s_id[2]),
-              x1 = aux(seg$x0, seg$x1, 1), 
-              y1 = aux(seg$y0, seg$y1, 1),
-              gp = gpar(col = 'black'))
+    try(grid.edit(gPath(s_id[2]),
+                  x1 = aux(seg$x0, seg$x1, 1), 
+                  y1 = aux(seg$y0, seg$y1, 1),
+                  gp = gpar(col = 'black')))
+
     # Final plot
     png(png.file, width = 600, height = 600)
     g
